@@ -8,7 +8,7 @@ import Alert from 'react-bootstrap/Alert';
 import Modif from "./modif";
 import Ajouter from "./ajout";
 
-function ListEtudiant({search}) {
+function ListEtudiant({Searchvalue,setSearchvalue,tosearch,settosearch}) {
     //les state
     let [datas, setDatas] = useState(null);
     let [loading, setLoading] = useState(true);
@@ -30,18 +30,28 @@ function ListEtudiant({search}) {
             setLoading(false);
         });
     }
-    
+    async function search(word){
+        return await axios.get("http://127.0.0.1:8000/api/search/"+word).then((res) => {
+            setDatas(res.data)
+        }).catch(error=>{
+            console.log(error)
+        })
+    }
+    if (tosearch){
+        search(Searchvalue)
+        settosearch(false)
+        console.log(datas)
+        setSearchvalue(null)
+    }
+
     //recuperation des donne
     useEffect(() => {
         getdata();
-        console.log(datas)
-
     },[])
 
     //aller au composant detail
     function afficheDetail(user) {
         setOneuser(user)
-        console.log(user)
         setDetail(true)
     }
     //afficher ou masquer le modal
@@ -167,20 +177,18 @@ function ListEtudiant({search}) {
                                                         loading && "loadind"}
                                                     {datas &&
                                                         (datas.map((user, index) => (
-                                                            <tr>
-                                                                <td key={index}>{user.id}</td>
-                                                                <td key={index}>
+                                                            <tr key={index}>
+                                                                <td >{user.id}</td>
+                                                                <td>
                                                                     <h2 className="table-avatar">
                                                                         <a href="#" style={{ cursor: "pointer" }} className="avatar avatar-sm me-2" onClick={afficheDetail.bind(this, user)}>
                                                                             <img className="avatar-img rounded-circle" src={user.etudiant.img}  alt={user.name}/>
                                                                         </a>
-                                                                        <a href="#" style={{ cursor: "pointer" }} onClick={afficheDetail.bind(this, user)}>
-
-                                                                            {user.name}</a>
+                                                                        <a href="#" style={{ cursor: "pointer" }} onClick={afficheDetail.bind(this, user)}>{user.name}</a>
                                                                     </h2>
                                                                 </td>
-                                                                <td key={index}>{user.etudiant.classe}</td>
-                                                                <td key={index}>{user.etudiant.tel}</td>
+                                                                <td>{user.etudiant.classe}</td>
+                                                                <td>{user.etudiant.tel}</td>
 
                                                                 <td className="text-end">
                                                                     <div className="actions">

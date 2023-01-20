@@ -33,24 +33,24 @@ function Ajouter({getdata,setshowadd,setalert,setalertmessage}){
         }
     }
     return(
-        <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
+        <div className="row">
+        <div className="col-md-12">
+            <div className="card">
+                <div className="card-body">
                     <form action="" method="post" onSubmit={handleSubmit(onSubmitAjou)}>
-                        <h5 class="card-title">Information personnel</h5>
-                        <div class="row">
+                        <h5 className="card-title">Information personnel</h5>
+                        <div className="row">
                             
-                            <div class="col-md-6">
-                                <div class="form-group">
+                            <div className="col-md-6">
+                                <div className="form-group">
                                     <label>Nom complet</label>
-                                     {errors.name && <p className="text-danger">{errors.name.message}</p>}
-                                    <input type="text" class="form-control"  {...register("name",{required:"veiller entrer le nom"})} placeholder="nom"/>
+                                     {errors.name && <p classNameName="text-danger">{errors.name.message}</p>}
+                                    <input type="text" className="form-control"  {...register("name",{required:"veiller entrer le nom"})} placeholder="nom"/>
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Email</label>
-                                     {errors.email && <p className="text-danger">{errors.email.message}</p>}
-                                    <input type="text" class="form-control"
+                                     {errors.email && <p classNameName="text-danger">{errors.email.message}</p>}
+                                    <input type="text" className="form-control"
                                                                         {...register("email",
                                                                         { required: 'veiller entrer votre email',
                                                                         pattern: {
@@ -60,21 +60,21 @@ function Ajouter({getdata,setshowadd,setalert,setalertmessage}){
                                                                     } placeholder="email"/> 
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div className="col-md-6">
                                 
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Password</label>
-                                     {errors.password && <p className="text-danger">{errors.password.message}</p>}
-                                    <input type="password" class="form-control"  {...register("password",{ required: "veiller entrer votre password" ,
+                                     {errors.password && <p classNameName="text-danger">{errors.password.message}</p>}
+                                    <input type="password" className="form-control"  {...register("password",{ required: "veiller entrer votre password" ,
                                                                                                                                 pattern: {
                                                                                                                                     value: /^(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
                                                                                                                                     message: 'Le mot de passe doit contenir au moins une lettre majuscule, un chiffre et comporter au moins 8 caractères'
                                                                                                                                   }})} />
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Repeat Password</label>
-                                    {errors.confpassword && <p className="text-danger">{errors.confpassword.message}</p>}
-                                    <input type="password" class="form-control" {...register("confpassword",{  required: true, validate: (val) => {
+                                    {errors.confpassword && <p classNameName="text-danger">{errors.confpassword.message}</p>}
+                                    <input type="password" className="form-control" {...register("confpassword",{  required: true, validate: (val) => {
                                                                                                                 if (watch('password') !== val) {
                                                                                                                 return "Les mot de passe ne correspondent pas";
                                                                                                                 }
@@ -82,35 +82,35 @@ function Ajouter({getdata,setshowadd,setalert,setalertmessage}){
                                 </div>
                             </div>
                         </div>
-                        <h5 class="card-title">Information secondaire</h5>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
+                        <h5 className="card-title">Information secondaire</h5>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <div className="form-group">
                                     <label>Addresse</label>
                                      
-                                    <input type="text" class="form-control" {...register("address")} placeholder="nom"/>
+                                    <input type="text" className="form-control" {...register("address")} placeholder="nom"/>
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Ecole</label>
                                      
-                                    <input type="text" class="form-control" {...register("ecole")} placeholder="nom"/>
+                                    <input type="text" className="form-control" {...register("ecole")} placeholder="nom"/>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>classe</label>
+                            <div className="col-md-6">
+                                <div className="form-group">
+                                    <label>classNamee</label>
                                      
-                                    <input type="text" class="form-control" {...register("classe")} placeholder="nom"/>
+                                    <input type="text" className="form-control" {...register("classNamee")} placeholder="nom"/>
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Telephone</label>
                                      
-                                    <input type="text" class="form-control" {...register("tel")} placeholder="nom"/>
+                                    <input type="text" className="form-control" {...register("tel")} placeholder="nom"/>
                                 </div>
                             </div>
                         </div>
-                        <div class="text-end">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                        <div className="text-end">
+                            <button type="submit" className="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>
