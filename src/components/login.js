@@ -21,7 +21,7 @@ function Login(){
                 localStorage.setItem("token", res.data.token);
                 localStorage.setItem("data",JSON.stringify(res.data));
                 console.log(res.data);
-                if (res.data.user.isadmin===1){
+                if (res.data.user){
                     history("/admin")
                 }  
             } else{
