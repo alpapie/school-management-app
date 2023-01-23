@@ -22,8 +22,6 @@ function Login(){
                 localStorage.setItem("data",JSON.stringify(res.data));
                 if (res.data.user.isadmin===1){
                     history("/admin")
-                }else{
-                    history("/etudiant")
                 }  
             } else{
                 setState({dberrror:true})
