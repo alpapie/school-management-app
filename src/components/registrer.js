@@ -16,7 +16,7 @@ function Registrers(){
     function onSubmit(data){
         if (data){
             //envoi des donnee a l'api
-            axios.post("http://127.0.0.1:8000/api/etudiant",
+            axios.post("https://sc.edep.sn/api/etudiant",
             data
             ).then( async res=>{
             if(res.data.success){

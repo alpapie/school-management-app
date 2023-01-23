@@ -12,6 +12,7 @@ import autoTable from 'jspdf-autotable'
 
 import Modif from "./modif";
 import Ajouter from "./ajout";
+import AddExcelFile from "./addexcel";
 
 function ListEtudiant({ Searchvalue, setSearchvalue, tosearch, settosearch }) {
  
@@ -28,9 +29,10 @@ function ListEtudiant({ Searchvalue, setSearchvalue, tosearch, settosearch }) {
     let [alertmessage, setalertmessage] = useState(false);
     let [defauldata, setdefauldata] = useState(null)
     let [showmodif, setshowmodif] = useState(false);
+    let [showaddexcel, setshowaddexcel] = useState(false);
 
     async function getdata() {
-        return await axios.get("http://127.0.0.1:8000/api/etudiant").then((res) => {
+        return await axios.get("https://sc.edep.sn/api/etudiant").then((res) => {
             setDatas(res.data)
         }).finally(() => {
             setLoading(false);
@@ -38,7 +40,7 @@ function ListEtudiant({ Searchvalue, setSearchvalue, tosearch, settosearch }) {
     }
     async function search(word) {
         if (word) {
-            await axios.get("http://127.0.0.1:8000/api/search/" + word).then((res) => {
+            await axios.get("https://sc.edep.sn/api/search/" + word).then((res) => {
                 setDatas(res.data)
             }).catch(error => {
                 console.log(error)
@@ -75,7 +77,7 @@ function ListEtudiant({ Searchvalue, setSearchvalue, tosearch, settosearch }) {
     //suppression d'un etudiant avec generation de popup et d'elert
     function HandlerDelete(id) {
         //envoi des donnee
-        axios.delete("http://127.0.0.1:8000/api/etudiant/" + id).then((res) => {
+        axios.delete("https://sc.edep.sn/api/etudiant/" + id).then((res) => {
             console.log(res.data)
             getdata();
         })
@@ -103,6 +105,11 @@ function ListEtudiant({ Searchvalue, setSearchvalue, tosearch, settosearch }) {
         setshowmodif(false)
         setdefauldata(null)
     }
+    //add with excelfile
+    const addexelfile = () => {
+        setshowaddexcel(true)
+    }
+    const closeaddexelfile = () => setshowaddexcel(false)
 
     const handeleModifOpen = async (data) => {
         setdefauldata({
@@ -130,6 +137,7 @@ function ListEtudiant({ Searchvalue, setSearchvalue, tosearch, settosearch }) {
         doc.save('listestudent.pdf')
     }
     let newdata=datas
+    //export to exel
     const exportFileexcel = useCallback(() => {
         
         newdata.forEach((data)=>{
@@ -144,6 +152,8 @@ function ListEtudiant({ Searchvalue, setSearchvalue, tosearch, settosearch }) {
         utils.book_append_sheet(wb, ws, "Data");
         writeFileXLSX(wb, "studentListexcel.xlsx");
       }, [newdata]);
+
+    
     return (
         <>
             <Modal show={show} onHide={handleClose}>
@@ -189,6 +199,7 @@ function ListEtudiant({ Searchvalue, setSearchvalue, tosearch, settosearch }) {
                                         <li className="breadcrumb-item active">Students</li>
                                     </ul>
                                 </div>
+
                                 <div className="col-auto text-end float-end ms-auto">
                                     <Dropdown>
                                         <Dropdown.Toggle variant="primary" id="dropdown-basic" >
@@ -196,13 +207,21 @@ function ListEtudiant({ Searchvalue, setSearchvalue, tosearch, settosearch }) {
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu>
-                                            <Dropdown.Item href="#" onClick={topdf}>PDF</Dropdown.Item>
-                                            <Dropdown.Item href="#" onClick={exportFileexcel}>EXCEL</Dropdown.Item>
+                                            <Dropdown.Item href="#" style={{ cursor: "pointer" }} onClick={topdf}>PDF</Dropdown.Item>
+                                            <Dropdown.Item href="#" style={{ cursor: "pointer" }} onClick={exportFileexcel}>EXCEL</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </div>
                                 <div className="col-auto text-end float-end ms-auto">
-                                    <a href="#" style={{ cursor: "pointer" }} onClick={handleShowadd} className="btn btn-primary"><i className="fas fa-plus"></i></a>
+                                    <Dropdown>
+                                        <Dropdown.Toggle variant="primary" id="dropdown-basic2" >
+                                        <i className="fas fa-plus"></i>
+                                        </Dropdown.Toggle>
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item style={{ cursor: "pointer" }} onClick={handleShowadd}>Form</Dropdown.Item>
+                                            <Dropdown.Item href="#" style={{ cursor: "pointer" }} onClick={addexelfile}>Excel file</Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
                                 </div>
                             </div>
                         </div>
@@ -275,6 +294,15 @@ function ListEtudiant({ Searchvalue, setSearchvalue, tosearch, settosearch }) {
                     <Ajouter setshowadd={setshowadd} setalertmessage={setalertmessage} setalert={setalert} getdata={getdata} />
                 </Modal.Body>
             </Modal>
+            <Modal show={showaddexcel} onHide={closeaddexelfile}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Ajouter</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <AddExcelFile setshowaddexcel={setshowaddexcel} setalertmessage={setalertmessage} setalert={setalert} getdata={getdata} />
+                </Modal.Body>
+            </Modal>
+            
 
             {/* modif d'un etudiant */}
             <Modal show={showmodif} onHide={handeleModifClose}>

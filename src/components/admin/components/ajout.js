@@ -6,7 +6,7 @@ function Ajouter({getdata,setshowadd,setalert,setalertmessage}){
     async function onSubmitAjou(values){
         if (values){
             //envoi des donnee a l'api
-           await axios.post("http://127.0.0.1:8000/api/etudiant",
+           await axios.post("https://sc.edep.sn/api/etudiant",
             values
             ).then( async res=>{
             if(res.data.success){

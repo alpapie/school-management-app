@@ -14,7 +14,7 @@ function Login(){
         setState({isLoader:false})
     }, 2000);
     async function  onSubmit(data){
-       await axios.post("http://127.0.0.1:8000/api/login",data)
+       await axios.post("https://sc.edep.sn/api/login",data)
         .then(async res =>{
             console.log(res.data)
             if(res.data.status){
