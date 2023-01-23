@@ -98,9 +98,9 @@ function Ajouter({getdata,setshowadd,setalert,setalertmessage}){
                             </div>
                             <div className="col-md-6">
                                 <div className="form-group">
-                                    <label>classNamee</label>
+                                    <label>classe</label>
                                      
-                                    <input type="text" className="form-control" {...register("classNamee")} placeholder="nom"/>
+                                    <input type="text" className="form-control" {...register("classe")} placeholder="nom"/>
                                 </div>
                                 <div className="form-group">
                                     <label>Telephone</label>
