@@ -12,12 +12,19 @@ function Header({user}) {
 
     const onSubmit = (data) => {
         setSearchvalue(data.seach)
-       settosearch(true)
+        settosearch(true)
+    }
+    const onChangeseacrh=(data)=>{
+        setSearchvalue(data)
+        settosearch(true)
+        console.log(data)
     }
     return (
         <>
+             <link rel="stylesheet" href="/assets/plugins/datatables/datatables.min.css"/>
             <link rel="stylesheet" href="/assets/plugins/fontawesome/css/fontawesome.min.css" />
             <link rel="stylesheet" href="/assets/plugins/fontawesome/css/all.min.css" />
+            <link rel="stylesheet" href="/assets/plugins/bootstrap/css/bootstrap.min.css" />
             <link rel="stylesheet" href="/assets/plugins/simple-calendar/simple-calendar.css" />
             <link rel="stylesheet" href="/assets/css/style.css" />
             <div className="main-wrapper">
@@ -39,7 +46,8 @@ function Header({user}) {
 
                     <div className="top-nav-search">
                         <form method="post" onSubmit={handleSubmit(onSubmit)}>
-                            <input type="text" className="form-control" {...register('seach')} placeholder="Search here" />
+                            <input type="text" className="form-control" {...register('seach',{onChange:(e)=>{onChangeseacrh(e.target.value)} }
+                                                                                            )} placeholder="Search here" />
                             <button className="btn" type="submit"><i className="fas fa-search"></i></button>
                         </form>
                     </div>
@@ -127,6 +135,8 @@ function Header({user}) {
 
             </div>
             <script src="/assets/js/jquery-3.6.0.min.js"></script>
+            <script src="/assets/js/bootstrap.min.js"></script>
+            <script src="/assets/js/popper.min.js"></script>
 
             <script src="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -136,6 +146,7 @@ function Header({user}) {
             <script src="/assets/plugins/apexchart/chart-data.js"></script>
 
             <script src="/assets/js/script.js"></script>
+                        
         </>
     )
 }

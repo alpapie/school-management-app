@@ -1,14 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useCallback} from "react";
 import axios from "axios";
 import DetailStudent from "./detailstudent"
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Alert from 'react-bootstrap/Alert';
+import Dropdown from 'react-bootstrap/Dropdown';
+
+import { read, utils, writeFileXLSX } from 'xlsx';
+import jsPDF from 'jspdf'
+import autoTable from 'jspdf-autotable'
 
 import Modif from "./modif";
 import Ajouter from "./ajout";
 
-function ListEtudiant({Searchvalue,setSearchvalue,tosearch,settosearch}) {
+function ListEtudiant({ Searchvalue, setSearchvalue, tosearch, settosearch }) {
+ 
     //les state
     let [datas, setDatas] = useState(null);
     let [loading, setLoading] = useState(true);
@@ -30,14 +36,19 @@ function ListEtudiant({Searchvalue,setSearchvalue,tosearch,settosearch}) {
             setLoading(false);
         });
     }
-    async function search(word){
-        return await axios.get("http://127.0.0.1:8000/api/search/"+word).then((res) => {
-            setDatas(res.data)
-        }).catch(error=>{
-            console.log(error)
-        })
+    async function search(word) {
+        if (word) {
+            await axios.get("http://127.0.0.1:8000/api/search/" + word).then((res) => {
+                setDatas(res.data)
+            }).catch(error => {
+                console.log(error)
+            })
+        } else {
+            getdata()
+        }
+
     }
-    if (tosearch){
+    if (tosearch) {
         search(Searchvalue)
         settosearch(false)
         console.log(datas)
@@ -47,7 +58,7 @@ function ListEtudiant({Searchvalue,setSearchvalue,tosearch,settosearch}) {
     //recuperation des donne
     useEffect(() => {
         getdata();
-    },[])
+    }, [])
 
     //aller au composant detail
     function afficheDetail(user) {
@@ -88,24 +99,51 @@ function ListEtudiant({Searchvalue,setSearchvalue,tosearch,settosearch}) {
     }
     const handeleAddClose = () => setshowadd(false)
 
-    const handeleModifClose= async()=>{
+    const handeleModifClose = async () => {
         setshowmodif(false)
         setdefauldata(null)
     }
 
-    const handeleModifOpen= async (data)=> {
+    const handeleModifOpen = async (data) => {
         setdefauldata({
-            name:data.name,
-            email:data.email,
-            ecole:data.etudiant.ecole,
-            classe:data.etudiant.classe,
-            tel:data.etudiant.tel,
-            address:data.etudiant.address,
-            id:data.id
+            name: data.name,
+            email: data.email,
+            ecole: data.etudiant.ecole,
+            classe: data.etudiant.classe,
+            tel: data.etudiant.tel,
+            address: data.etudiant.address,
+            id: data.id
         })
-       setshowmodif(true)
+        setshowmodif(true)
     }
-
+    const topdf=()=>{
+        const doc = new jsPDF()
+        let newdata=[]
+        datas.forEach((data)=>{
+            newdata.push([data.id,data.name,data.email,data.etudiant.tel,data.etudiant.ecole,data.etudiant.classe,data.etudiant.address])
+        })
+        // autoTable(doc, { html: '#studenttable' })
+        autoTable(doc, {
+            head: [['id','Name', 'Email', 'telephone','ecole','classe','address']],
+            body: newdata
+          })
+        doc.save('listestudent.pdf')
+    }
+    let newdata=datas
+    const exportFileexcel = useCallback(() => {
+        
+        newdata.forEach((data)=>{
+            data['telephone']=data.etudiant.tel
+            data['classe']=data.etudiant.classe
+            data['ecole']=data.etudiant.ecole
+            data['address']=data.etudiant.address
+            delete(data.etudiant)
+        })
+        const ws = utils.json_to_sheet(newdata);
+        const wb = utils.book_new();
+        utils.book_append_sheet(wb, ws, "Data");
+        writeFileXLSX(wb, "studentListexcel.xlsx");
+      }, [newdata]);
     return (
         <>
             <Modal show={show} onHide={handleClose}>
@@ -152,6 +190,18 @@ function ListEtudiant({Searchvalue,setSearchvalue,tosearch,settosearch}) {
                                     </ul>
                                 </div>
                                 <div className="col-auto text-end float-end ms-auto">
+                                    <Dropdown>
+                                        <Dropdown.Toggle variant="primary" id="dropdown-basic" >
+                                        Download
+                                        </Dropdown.Toggle>
+
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item href="#" onClick={topdf}>PDF</Dropdown.Item>
+                                            <Dropdown.Item href="#" onClick={exportFileexcel}>EXCEL</Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                </div>
+                                <div className="col-auto text-end float-end ms-auto">
                                     <a href="#" style={{ cursor: "pointer" }} onClick={handleShowadd} className="btn btn-primary"><i className="fas fa-plus"></i></a>
                                 </div>
                             </div>
@@ -162,7 +212,7 @@ function ListEtudiant({Searchvalue,setSearchvalue,tosearch,settosearch}) {
                                 <div className="card card-table">
                                     <div className="card-body">
                                         <div className="table-responsive">
-                                            <table className="table table-hover table-center mb-0 datatable">
+                                            <table className="table table-hover table-center mb-0 datatable" id="table-to-xls">
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
@@ -182,7 +232,7 @@ function ListEtudiant({Searchvalue,setSearchvalue,tosearch,settosearch}) {
                                                                 <td>
                                                                     <h2 className="table-avatar">
                                                                         <a href="#" style={{ cursor: "pointer" }} className="avatar avatar-sm me-2" onClick={afficheDetail.bind(this, user)}>
-                                                                            <img className="avatar-img rounded-circle" src={user.etudiant.img}  alt={user.name}/>
+                                                                            <img className="avatar-img rounded-circle" src={user.etudiant.img} alt={user.name} />
                                                                         </a>
                                                                         <a href="#" style={{ cursor: "pointer" }} onClick={afficheDetail.bind(this, user)}>{user.name}</a>
                                                                     </h2>
@@ -222,7 +272,7 @@ function ListEtudiant({Searchvalue,setSearchvalue,tosearch,settosearch}) {
                     <Modal.Title>Ajouter</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                   <Ajouter setshowadd={setshowadd} setalertmessage={setalertmessage} setalert={setalert} getdata={getdata}/>
+                    <Ajouter setshowadd={setshowadd} setalertmessage={setalertmessage} setalert={setalert} getdata={getdata} />
                 </Modal.Body>
             </Modal>
 
@@ -232,10 +282,10 @@ function ListEtudiant({Searchvalue,setSearchvalue,tosearch,settosearch}) {
                     <Modal.Title>Modifier etudiant</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                   { defauldata && <Modif defauldata={defauldata} handeleModifClose={handeleModifClose} setalertmessage={setalertmessage} setalert={setalert} getdata={getdata}/> }
+                    {defauldata && <Modif defauldata={defauldata} handeleModifClose={handeleModifClose} setalertmessage={setalertmessage} setalert={setalert} getdata={getdata} />}
                 </Modal.Body>
             </Modal>
-            
+
         </>
     )
 
