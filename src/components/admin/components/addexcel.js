@@ -8,7 +8,7 @@ function AddExcelFile({getdata,setshowaddexcel,setalert,setalertmessage}){
         if (values){
             //envoi des donnee a l'api
             console.log(values.file[0]);
-           await axios.post("https://sc.edep.sn/api/etudiantaddexel",
+           await axios.post(`${process.env.REACT_APP_BASE_URL}/api/etudiantaddexel`,
            {file:values.file[0]}
             ).then( async res=>{
             if(res.data.success){

@@ -7,7 +7,7 @@ class Index extends Component{
         this.state = {
             students:null
         }
-        axios.get("https://sc.edep.sn/api/etudiant").then((res) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/etudiant`).then((res) => {
             this.setState({students:res.data.length})
         })
     }

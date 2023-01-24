@@ -6,7 +6,7 @@ function Ajouter({getdata,setshowadd,setalert,setalertmessage}){
     async function onSubmitAjou(values){
         if (values){
             //envoi des donnee a l'api
-           await axios.post("https://sc.edep.sn/api/etudiant",
+           await axios.post(`${process.env.REACT_APP_BASE_URL}/api/etudiant`,
             values
             ).then( async res=>{
             if(res.data.success){

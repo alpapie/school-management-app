@@ -32,7 +32,7 @@ function ListEtudiant({ Searchvalue, setSearchvalue, tosearch, settosearch }) {
     let [showaddexcel, setshowaddexcel] = useState(false);
 
     async function getdata() {
-        return await axios.get("https://sc.edep.sn/api/etudiant").then((res) => {
+        return await axios.get(`${process.env.REACT_APP_BASE_URL}/api/etudiant`).then((res) => {
             setDatas(res.data)
         }).finally(() => {
             setLoading(false);
@@ -40,7 +40,7 @@ function ListEtudiant({ Searchvalue, setSearchvalue, tosearch, settosearch }) {
     }
     async function search(word) {
         if (word) {
-            await axios.get("https://sc.edep.sn/api/search/" + word).then((res) => {
+            await axios.get(`${process.env.REACT_APP_BASE_URL}/api/search/` + word).then((res) => {
                 setDatas(res.data)
             }).catch(error => {
                 console.log(error)
@@ -77,7 +77,7 @@ function ListEtudiant({ Searchvalue, setSearchvalue, tosearch, settosearch }) {
     //suppression d'un etudiant avec generation de popup et d'elert
     function HandlerDelete(id) {
         //envoi des donnee
-        axios.delete("https://sc.edep.sn/api/etudiant/" + id).then((res) => {
+        axios.delete(`${process.env.REACT_APP_BASE_URL}/api/etudiant/` + id).then((res) => {
             console.log(res.data)
             getdata();
         })
@@ -146,6 +146,7 @@ function ListEtudiant({ Searchvalue, setSearchvalue, tosearch, settosearch }) {
             data['ecole']=data.etudiant.ecole
             data['address']=data.etudiant.address
             delete(data.etudiant)
+            delete(data.isadmin)
         })
         const ws = utils.json_to_sheet(newdata);
         const wb = utils.book_new();
@@ -208,7 +209,7 @@ function ListEtudiant({ Searchvalue, setSearchvalue, tosearch, settosearch }) {
 
                                         <Dropdown.Menu>
                                             <Dropdown.Item href="#" style={{ cursor: "pointer" }} onClick={topdf}>PDF</Dropdown.Item>
-                                            <Dropdown.Item href="#" style={{ cursor: "pointer" }} onClick={exportFileexcel}>EXCEL</Dropdown.Item>
+                                            <Dropdown.Item href="#" style={{ cursor: "pointer" }} >EXCEL</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </div>

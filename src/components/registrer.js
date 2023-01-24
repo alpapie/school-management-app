@@ -16,7 +16,7 @@ function Registrers(){
     function onSubmit(data){
         if (data){
             //envoi des donnee a l'api
-            axios.post("https://sc.edep.sn/api/etudiant",
+            axios.post(`${process.env.REACT_APP_BASE_URL}/api/etudiant`,
             data
             ).then( async res=>{
             if(res.data.success){

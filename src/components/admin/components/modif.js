@@ -12,7 +12,7 @@ function Modif({defauldata,handeleModifClose,setalert,setalertmessage,getdata}){
         if (values){
             //envoi des donnee a l'api
             console.log(values)
-           await axios.put("https://sc.edep.sn/api/etudiant/"+values.id,
+           await axios.put(`${process.env.REACT_APP_BASE_URL}/api/etudiant/`+values.id,
             values
             ).then( async res=>{
             if(res.data.success){
