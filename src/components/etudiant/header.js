@@ -10,20 +10,20 @@ class Header extends Component {
         console.log(this.props.user)
         return (
             <>
-                <link rel="stylesheet" href="/assets/plugins/fontawesome/css/fontawesome.min.css" />
-                <link rel="stylesheet" href="/assets/plugins/fontawesome/css/all.min.css" />
-                <link rel="stylesheet" href="/assets/plugins/simple-calendar/simple-calendar.css" />
-                <link rel="stylesheet" href="/assets/css/style.css" />
+                <link rel="stylesheet" href={process.env.PUBLIC_URL+ '/assets/plugins/fontawesome/css/fontawesome.min.css'} />
+                <link rel="stylesheet" href={process.env.PUBLIC_URL+ '/assets/plugins/fontawesome/css/all.min.css'} />
+                <link rel="stylesheet" href={process.env.PUBLIC_URL+ '/assets/plugins/simple-calendar/simple-calendar.css'} />
+                <link rel="stylesheet" href={process.env.PUBLIC_URL+ '/assets/css/style.css'} />
                 <div className="main-wrapper">
 
                     <div className="header">
 
                         <div className="header-left">
                             <a href="/admin" className="logo">
-                                <img src="/faviconold.ico" alt="Logo" />
+                                <img src={process.env.PUBLIC_URL+ '/faviconold.ico" alt="Logo'} />
                             </a>
                             {/* <a href="" className="logo logo-small">
-                                <img src="/assets/img/logo-small.png" alt="Logo" width="30" height="30" />
+                                <img src={process.env.PUBLIC_URL+ '/assets/img/logo-small.png" alt="Logo" width="30" height="30" />
                             </a> */}
                         </div>
 
@@ -49,13 +49,13 @@ class Header extends Component {
 
                             <li className="nav-item dropdown has-arrow">
                                 <a href="#" className="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                                    <span className="user-img"><img className="rounded-circle" src="/assets/img/user.jpg"
+                                    <span className="user-img"><img className="rounded-circle" src={process.env.PUBLIC_URL+ '/assets/img/user.jpg'}
                                         width="31" alt="Ryan Taylor" /></span>
                                 </a>
                                 <div className="dropdown-menu">
                                     <div className="user-header">
                                         <div className="avatar avatar-sm">
-                                            <img src="/assets/img/user.jpg" alt="User Image"
+                                            <img src={process.env.PUBLIC_URL+ '/assets/img/user.jpg" alt="User Image'}
                                                 className="avatar-img rounded-circle" />
                                         </div>
                                         <div className="user-text">
@@ -112,16 +112,16 @@ class Header extends Component {
                     </div>
 
                 </div>
-                <script src="/assets/js/jquery-3.6.0.min.js"></script>
+                <script src={process.env.PUBLIC_URL+ '/assets/js/jquery-3.6.0.min.js'}></script>
 
-                <script src="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+                <script src={process.env.PUBLIC_URL+ '/assets/plugins/bootstrap/js/bootstrap.bundle.min.js'}></script>
 
-                <script src="/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+                <script src={process.env.PUBLIC_URL+ '/assets/plugins/slimscroll/jquery.slimscroll.min.js'}></script>
 
-                <script src="/assets/plugins/apexchart/apexcharts.min.js"></script>
-                <script src="/assets/plugins/apexchart/chart-data.js"></script>
+                <script src={process.env.PUBLIC_URL+ '/assets/plugins/apexchart/apexcharts.min.js'}></script>
+                <script src={process.env.PUBLIC_URL+ '/assets/plugins/apexchart/chart-data.js'}></script>
 
-                <script src="/assets/js/script.js"></script>
+                <script src={process.env.PUBLIC_URL+ '/assets/js/script.js'}></script>
             </>
         )
     }

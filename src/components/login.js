@@ -41,7 +41,7 @@ function Login(){
                         <div className="lds-pos"></div>
                     </div>
                 </div>:null}
-                <div className="auth-wrappers d-flex no-block justify-content-center align-items-center" style={{background:"url(/assets/images/background/login-register.jpg) no-repeat center center", backgroundSize: "cover"}}>
+                <div className="auth-wrappers d-flex no-block justify-content-center align-items-center" style={{background:"url("+process.env.PUBLIC_URL+"/assets/images/background/login-register.jpg) no-repeat center center", backgroundSize: "cover"}}>
                     <div className="auth-box p-4 bg-white rounded">
                         <div id="loginform">
                             <div className="logo">

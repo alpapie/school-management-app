@@ -46,7 +46,7 @@ class DetailStudent extends Component{
                                     <div class="about-info">
                                         <h4>About Me</h4>
                                         <div class="media mt-3 d-flex">
-                                            <img src={this.props.OneUser.etudiant.img+size} class="me-3 flex-shrink-0" alt="..."/>
+                                            <img src={"https:"+this.props.OneUser.etudiant.img?this.props.OneUser.etudiant.img+size:null} class="me-3 flex-shrink-0" alt="..."/>
                                             <div class="media-body flex-grow-1">
                                                 <ul>
                                                     <li>

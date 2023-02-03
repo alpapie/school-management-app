@@ -208,8 +208,8 @@ function ListEtudiant({ Searchvalue, setSearchvalue, tosearch, settosearch }) {
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu>
-                                            <Dropdown.Item href="#" style={{ cursor: "pointer" }} onClick={topdf}>PDF</Dropdown.Item>
-                                            <Dropdown.Item href="#" style={{ cursor: "pointer" }} >EXCEL</Dropdown.Item>
+                                            <Dropdown.Item style={{ cursor: "pointer" }} onClick={topdf}>PDF</Dropdown.Item>
+                                            <Dropdown.Item style={{ cursor: "pointer" }} onClick={exportFileexcel} >EXCEL</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </div>
@@ -220,7 +220,7 @@ function ListEtudiant({ Searchvalue, setSearchvalue, tosearch, settosearch }) {
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu>
                                             <Dropdown.Item style={{ cursor: "pointer" }} onClick={handleShowadd}>Form</Dropdown.Item>
-                                            <Dropdown.Item href="#" style={{ cursor: "pointer" }} onClick={addexelfile}>Excel file</Dropdown.Item>
+                                            <Dropdown.Item style={{ cursor: "pointer" }} onClick={addexelfile}>Excel file</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </div>
@@ -251,22 +251,22 @@ function ListEtudiant({ Searchvalue, setSearchvalue, tosearch, settosearch }) {
                                                                 <td >{user.id}</td>
                                                                 <td>
                                                                     <h2 className="table-avatar">
-                                                                        <a href="#" style={{ cursor: "pointer" }} className="avatar avatar-sm me-2" onClick={afficheDetail.bind(this, user)}>
-                                                                            <img className="avatar-img rounded-circle" src={user.etudiant.img} alt={user.name} />
+                                                                        <a style={{ cursor: "pointer" }} className="avatar avatar-sm me-2" onClick={afficheDetail.bind(this, user)}>
+                                                                            <img className="avatar-img rounded-circle" src={"https:"+user.etudiant.img} alt={user.name} />
                                                                         </a>
-                                                                        <a href="#" style={{ cursor: "pointer" }} onClick={afficheDetail.bind(this, user)}>{user.name}</a>
+                                                                        <a style={{ cursor: "pointer" }} onClick={afficheDetail.bind(this, user)}>{user.name}</a>
                                                                     </h2>
                                                                 </td>
-                                                                <td>{user.etudiant.classe}</td>
-                                                                <td>{user.etudiant.tel}</td>
+                                                                <td>{user.etudiant?user.etudiant.classe:null}</td>
+                                                                <td>{user.etudiant?user.etudiant.tel:null}</td>
 
                                                                 <td className="text-end">
                                                                     <div className="actions">
-                                                                        <a href="#" style={{ cursor: "pointer" }} onClick={handeleModifOpen.bind(this, user)}
+                                                                        <a style={{ cursor: "pointer" }} onClick={handeleModifOpen.bind(this, user)}
                                                                             className="btn btn-sm bg-success-light me-2">
                                                                             <i className="fas fa-pen"></i>
                                                                         </a>
-                                                                        <a href="#" style={{ cursor: "pointer" }} onClick={handleShow.bind(this, user.id)} className="btn btn-sm bg-danger-light">
+                                                                        <a style={{ cursor: "pointer" }} onClick={handleShow.bind(this, user.id)} className="btn btn-sm bg-danger-light">
                                                                             <i className="fas fa-trash"></i>
 
                                                                         </a>

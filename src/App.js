@@ -1,5 +1,5 @@
 import React,{Component} from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"
 
 import Login from "./components/login";
@@ -25,18 +25,18 @@ class App extends Component{
   render(){
     return(
       <>
-            <BrowserRouter>
-              <Routes>
-                  <Route path="/" element={<Login />}/>
-                  <Route path="/mot-passe-oublier" element={<ForgotPwd/>} />
-                  <Route path="/registrer" element={<Registrers />} />
-                  <Route path="/logout" element={<Logout/>} />
-                  <Route path="/etudiant/*" element={<Etudiantindex />}/>
-                  <Route path="/admin/*" element={<Adminindex/>}/>
-                  <Route path="/etudiant/*" element={<NoPage />}/>
-                  <Route path="*" element={<NoPage />} />
-              </Routes>
-            </BrowserRouter>
+        <HashRouter>
+          <Routes>
+              <Route path="/" element={<Login />}/>
+              <Route path="/mot-passe-oublier" element={<ForgotPwd/>} />
+              <Route path="/registrer" element={<Registrers />} />
+              <Route path="/logout" element={<Logout/>} />
+              <Route path="/etudiant/*" element={<Etudiantindex />}/>
+              <Route path="/admin/*" element={<Adminindex/>}/>
+              <Route path="/etudiant/*" element={<NoPage />}/>
+              <Route path="*" element={<NoPage />} />
+          </Routes>
+        </HashRouter>
       </>
     )
   }
