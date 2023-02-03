@@ -23,23 +23,23 @@ function Header({ user }) {
         console.log(data)
     }
 
-    let onchangemobilenav=()=>{
-        if(mobilenav==="main-wrapper"){
-            
-        setmobilenav("main-wrapper slide-nav")
-        }else{
+    let onchangemobilenav = () => {
+        if (mobilenav === "main-wrapper") {
+
+            setmobilenav("main-wrapper slide-nav")
+        } else {
             setmobilenav("main-wrapper")
         }
-        
+
     }
-    let onchangnimiside=()=>{
-        if(nimiside===""){
-            
-        setnimiside("mini-sidebar")
-        }else{
+    let onchangnimiside = () => {
+        if (nimiside === "") {
+
+            setnimiside("mini-sidebar")
+        } else {
             setnimiside("")
         }
-        
+
     }
     return (
         <>
@@ -57,7 +57,7 @@ function Header({ user }) {
                             < Link to="/admin" className="logo">
                                 <img src={process.env.PUBLIC_URL + '/assets/img/logo.png'} alt="Logo" />
                             </Link>
-                            < Link to="/admin"  className="logo logo-small">
+                            < Link to="/admin" className="logo logo-small">
                                 <img src={process.env.PUBLIC_URL + '/assets/img/logo.png'} alt="Logo" width="30" height="30" />
                             </Link>
                         </div>
@@ -81,7 +81,7 @@ function Header({ user }) {
 
                         <ul className="nav user-menu" >
                             <Dropdown className="nav-item dropdown has-arrow">
-                                <Dropdown.Toggle className="dropdown-toggle nav-link" data-toggle="dropdown"  id="collapseExample">
+                                <Dropdown.Toggle className="dropdown-toggle nav-link" data-toggle="dropdown" id="collapseExample">
                                     <span className="user-img"><img className="rounded-circle" src={process.env.PUBLIC_URL + '/assets/img/user.jpg'}
                                         width="31" alt="Ryan Taylor" /></span>
                                 </Dropdown.Toggle>
@@ -115,15 +115,21 @@ function Header({ user }) {
                                         <a href="/admin"> <span><i className="fas fa-sharp fa-solid fa-school"></i> <span> Dashboard</span></span></a>
                                     </li> */}
                                     <li className="submenu">
-                                        <a href="/admin/list-etudiant" style={{ cursor: "pointer" }}><span> <i className="fas fa-user-graduate"></i> <span>listes etudiant</span></span></a>
+                                        <Link to="/admin/list-etudiant">
+                                            <a style={{ cursor: "pointer" }}><span> <i className="fas fa-user-graduate"></i> <span>listes etudiant</span></span></a>
+                                        </Link>
                                     </li>
                                     <li className="submenu ">
-                                        <a style={{ cursor: "pointer"}}>
-                                            <span><i className="fas fa-chalkboard-teacher"></i> <span>listes enseignant</span> </span>
-                                        </a>
+                                        <Link>
+                                            <a style={{ cursor: "pointer" }}>
+                                                <span><i className="fas fa-chalkboard-teacher"></i> <span>listes enseignant</span> </span>
+                                            </a>
+                                        </Link>
                                     </li>
                                     <li className="submenu ">
-                                        <a style={{ cursor: "pointer" }}> <span><i className="fas fa-book-reader"></i> <span>listes cours</span> </span></a>
+                                        <Link>
+                                            <a style={{ cursor: "pointer" }}> <span><i className="fas fa-book-reader"></i> <span>listes cours</span> </span></a>
+                                        </Link>
                                     </li>
 
                                     <li className="menu-title">
@@ -131,7 +137,9 @@ function Header({ user }) {
                                     </li>
 
                                     <li>
-                                        <a style={{ cursor: "pointer" }}><i className="fas fa-clipboard-list"></i> <span>Exam list</span></a>
+                                        <Link >
+                                            <a style={{ cursor: "pointer" }}><i className="fas fa-clipboard-list"></i> <span>Exam list</span></a>
+                                        </Link>
                                     </li>
                                     <li>
                                         <a style={{ cursor: "pointer" }}><i className="fas fa-calendar-day"></i> <span>Events</span></a>
@@ -150,7 +158,7 @@ function Header({ user }) {
                         {/* <Route path="/" element={<Index/>} /> 
                         <Route path="/list-etudiant" element={*/}
                         <Routes>
-                            <Route path="/" element={<Index/>} />
+                            <Route path="/" element={<Index />} />
                             <Route path="/list-etudiant" element={<ListEtudiant tosearch={tosearch} settosearch={settosearch} setSearchvalue={setSearchvalue} Searchvalue={Searchvalue} />} />
                         </Routes>
                         {/* <ListEtudiant tosearch={tosearch} settosearch={settosearch} setSearchvalue={setSearchvalue} Searchvalue={Searchvalue} /> */}

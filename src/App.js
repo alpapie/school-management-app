@@ -25,7 +25,7 @@ class App extends Component{
   render(){
     return(
       <>
-        <BrowserRouter>
+        <HashRouter>
           <Routes>
               <Route path="/" element={<Login />}/>
               <Route path="/mot-passe-oublier" element={<ForgotPwd/>} />
@@ -36,7 +36,7 @@ class App extends Component{
               <Route path="/etudiant/*" element={<NoPage />}/>
               <Route path="*" element={<NoPage />} />
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </>
     )
   }
