@@ -118,7 +118,7 @@ function Header({ user }) {
                                         <a href="/admin/list-etudiant" style={{ cursor: "pointer" }}><span> <i className="fas fa-user-graduate"></i> <span>listes etudiant</span></span></a>
                                     </li>
                                     <li className="submenu ">
-                                        <a style={{ cursor: "pointer" }}>
+                                        <a style={{ cursor: "pointer"}}>
                                             <span><i className="fas fa-chalkboard-teacher"></i> <span>listes enseignant</span> </span>
                                         </a>
                                     </li>
