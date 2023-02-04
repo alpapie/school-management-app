@@ -23,6 +23,7 @@ class App extends Component{
      }, 2000);
   }    
   render(){
+    
     return(
       <>
         <HashRouter>
